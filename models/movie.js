@@ -4,11 +4,13 @@ import { randomUUID } from "node:crypto";
 export class MovieModel {
   static async getAll({ genre }) {
     if (genre) {
-      const movies = movies.filter((movie) =>
+      const filteredMovies = movies.filter((movie) =>
         movie.genre.some((g) => g.toLowerCase() === genre.toLowerCase())
       );
-      return movies;
+      console.log(filteredMovies);
+      return filteredMovies;
     }
+    return movies;
   }
 
   static async getById({ id }) {
@@ -27,7 +29,7 @@ export class MovieModel {
 
   static async update({ id, input }) {
     const movieIndex = movies.findIndex((movie) => movie.id === id);
-
+    console.log("movieIndex", movieIndex);
     if (movieIndex === -1) {
       return false;
     }
@@ -37,7 +39,7 @@ export class MovieModel {
     };
 
     movies[movieIndex] = updateMovie;
-    return true;
+    return updateMovie;
   }
 
   static async delete({ id }) {
